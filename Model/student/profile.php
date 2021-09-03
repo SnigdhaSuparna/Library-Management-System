@@ -1,0 +1,105 @@
+<?php
+    include "connection.php";
+    include "navbar.php";
+
+?>
+<?DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+    <style type="text/css">
+    .wrapper{
+        height: 600px;
+        width: 500px;
+        margin: 0 auto;
+        background-color: skyblue;
+        //opacity: 0.7;
+        color: black;
+    }
+	</style>
+</head>
+<body style="background-color: pink;">
+    <div class="container">
+        <form action="" method="post">
+            <button class="btn btn-default" style="float: right; width:70px" name="submit1">Edit</button>
+        </form>
+        <div class="wrapper">
+            <?php
+            if(isset($_POST['submit1']))
+            {
+                ?>
+                    <script type="text/javascript">
+                        window.location="edit.php"
+                    </script>
+                <?php
+            }
+                $q=mysqli_query($db, "SELECT * FROM `student` WHERE username='$_SESSION[login_user]' ;");
+
+            ?>
+            <br>
+            <h2 style="text-align: center;">My Profile</h2>
+            <?php
+                $row=mysqli_fetch_assoc($q);
+
+                echo "<div style='text-align: center'><img class='img-circle profile-img' height=110 width=108 src='".$_SESSION['pic']."'></div>";
+            ?>
+            <br>
+            <div style="text-align: center;"><b> WELCOME, </b>
+                <h4>
+                    <?php echo $_SESSION['login_user']; ?>
+                </h4>
+            </div>
+            <?php
+                echo"<b>";
+                echo "<table class='table table-bordered'>";
+                    echo "<tr>"; 
+                        echo "<td>";
+                            echo "<b> First Name: </b>";
+                        echo "</td>";
+                        echo "<td>";
+                            echo $row['first'];
+                        echo "</td>";
+                    echo "</tr>"; 
+
+                    echo "<tr>"; 
+                        echo "<td>";
+                            echo "<b> Last Name: </b>";
+                        echo "</td>";
+                        echo "<td>";
+                            echo $row['last'];
+                        echo "</td>";
+                    echo "</tr>";
+                    
+                    echo "<tr>"; 
+                        echo "<td>";
+                            echo "<b> UserName: </b>";
+                        echo "</td>";
+                        echo "<td>";
+                            echo $row['username'];
+                        echo "</td>";
+                    echo "</tr>";
+
+                    echo "<tr>"; 
+                        echo "<td>";
+                            echo "<b> Password: </b>";
+                        echo "</td>";
+                        echo "<td>";
+                            echo $row['password'];
+                        echo "</td>";
+                    echo "</tr>";
+
+                    echo "<tr>"; 
+                        echo "<td>";
+                            echo "<b> Email: </b>";
+                        echo "</td>";
+                        echo "<td>";
+                            echo $row['email'];
+                        echo "</td>";
+                    echo "</tr>";
+                echo "</table>";
+                echo"</b>";
+            ?>
+        </div>
+    </div>
+</body>
+</html>
